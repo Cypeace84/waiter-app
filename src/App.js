@@ -1,22 +1,29 @@
-import { Provider } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Homepage from './components/pages/Homepage/Homepage';
-import NotFound from './components/pages/NotFound/NotFound';
-import Table from './components/pages/Table/Table';
+import Homepage from './components/pages/homepage/Homepage';
+import NotFound from './components/pages/notFound/NotFound';
+import Table from './components/pages/table/Table';
+import Footer from './components/views/footer/Footer';
+import Header from './components/views/header/Header';
 
-import store from './redux/store';
+import { fetchTables } from './redux/tableRedux';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(fetchTables()), [dispatch]);
+
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Homepage />} />
-          <Route path='/table/:id' element={<Table />} />
-          <Route path='*' element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Homepage />} />
+        <Route path='/table/:id' element={<Table />} />
+        <Route path='*' element={<NotFound />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }
 
