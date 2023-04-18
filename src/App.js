@@ -6,6 +6,7 @@ import NotFound from './components/pages/notFound/NotFound';
 import Table from './components/pages/table/Table';
 import Footer from './components/views/footer/Footer';
 import Header from './components/views/header/Header';
+import { getIsLoading } from './redux/loadingRedux';
 
 import { fetchTables, getAllTables } from './redux/tableRedux';
 
@@ -14,18 +15,22 @@ function App() {
 
   const tables = useSelector(getAllTables); ////
   const [loading, setLoading] = useState(true); ////
+  const isLoading = useSelector(getIsLoading);
+  // setLoading(isLoading);
+  console.log(isLoading);
 
   // useEffect(() => dispatch(fetchTables()), [dispatch]);
   useEffect(() => {
-    dispatch(fetchTables())
-      .then(() => setLoading(false))
-      .catch((error) => {
-        console.log('Error:', error);
-        setLoading(false);
-      });
-  }, [dispatch]);
+    dispatch(fetchTables());
 
-  if (loading || !tables) {
+    // .then(() => setLoading(false))
+    // .catch((error) => {
+    //   console.log('Error:', error);
+    //   setLoading(false);
+    // });
+  }, [dispatch]);
+  console.log('is', isLoading);
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 

@@ -27,7 +27,8 @@ const Homepage = () => {
             Table {table.id}
             <div className='d-inline ms-3 '>
               <span className='fs-6'>
-                <strong>Status:</strong>Busy
+                <strong>Status:</strong>
+                {table.status}
               </span>
             </div>
           </Col>

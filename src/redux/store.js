@@ -12,8 +12,8 @@ const subreducers = {
 const reducer = combineReducers(subreducers);
 const store = createStore(
   reducer,
-  // initialState,
-  { ...initialState, loading: true }, // initialState + loading
+  initialState,
+  // { ...initialState, loading: true }, // initialState + loading
 
   compose(
     applyMiddleware(thunk),

@@ -1,15 +1,20 @@
 import initialState from './initialState';
 
+//selectors
+export const getIsLoading = (state) => state.isLoading;
+
 const SET_LOADING = 'SET_LOADING';
 export const LOADING_START = 'app/loading/LOADING_START';
 export const LOADING_END = 'app/loading/LOADING_END';
 
 // Action creators
-export const setLoading = (isLoading) => ({ type: SET_LOADING, isLoading });
+export const setLoading = (payload) => ({ type: SET_LOADING, payload });
 
 // Reducer
 const loadingReducer = (statePart = initialState.isLoading, action) => {
   switch (action.type) {
+    case SET_LOADING:
+      return { ...statePart, isLoading: false };
     case LOADING_START:
       return { ...statePart, isLoading: true };
     case LOADING_END:

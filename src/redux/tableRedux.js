@@ -1,7 +1,11 @@
 import initialState from './initialState';
+import { setLoading } from './loadingRedux';
+
+// export const ustaw = setLoading(false)
 
 //selectors
 export const getAllTables = (state) => state.tables;
+export const getIsLoading = (state) => state.isLoading;
 
 export const getTableById = ({ tables }, id) =>
   tables.find((table) => table.id == id);
@@ -17,7 +21,9 @@ export const fetchTables = () => {
     console.log('fetchTables start');
     fetch('http://localhost:3131/api/tables')
       .then((res) => res.json())
-      .then((tables) => dispatch(updateTables(tables)));
+      .then((tables) => dispatch(updateTables(tables)))
+      .then(() => dispatch(setLoading(false)));
+    console.log('fetchTables end');
   };
 };
 
