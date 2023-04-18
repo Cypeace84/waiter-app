@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Homepage from './components/pages/homepage/Homepage';
@@ -13,24 +13,16 @@ import { fetchTables, getAllTables } from './redux/tableRedux';
 function App() {
   const dispatch = useDispatch();
 
-  const tables = useSelector(getAllTables); ////
-  const [loading, setLoading] = useState(true); ////
   const isLoading = useSelector(getIsLoading);
-  // setLoading(isLoading);
-  console.log(isLoading);
+  const tables = useSelector(getAllTables);
+  console.log('isLoading', isLoading);
 
-  // useEffect(() => dispatch(fetchTables()), [dispatch]);
   useEffect(() => {
     dispatch(fetchTables());
-
-    // .then(() => setLoading(false))
-    // .catch((error) => {
-    //   console.log('Error:', error);
-    //   setLoading(false);
-    // });
   }, [dispatch]);
-  console.log('is', isLoading);
+
   if (isLoading) {
+    console.log('is', isLoading);
     return <div>Loading...</div>;
   }
 
@@ -39,7 +31,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<Homepage />} />
-        <Route path='/table/:id' element={<Table />} />
+        <Route path='/table/:id' element={<Table tables={tables} />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />

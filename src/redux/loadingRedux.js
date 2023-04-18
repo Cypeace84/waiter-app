@@ -1,7 +1,7 @@
 import initialState from './initialState';
 
 //selectors
-export const getIsLoading = (state) => state.loading.isLoading;
+export const getIsLoading = (state) => state.isLoading;
 
 const SET_LOADING = 'SET_LOADING';
 export const LOADING_START = 'app/loading/LOADING_START';

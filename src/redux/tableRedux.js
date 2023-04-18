@@ -5,10 +5,11 @@ import { setLoading } from './loadingRedux';
 
 //selectors
 export const getAllTables = (state) => state.tables;
+
 // export const getIsLoading = (state) => state.isLoading;
 
 export const getTableById = ({ tables }, id) =>
-  tables.find((table) => table.id == id);
+  tables.find((table) => table.id === id);
 // actions
 const createActionName = (actionName) => `app/tables/${actionName}`;
 const UPDATE_TABLES = createActionName('UPDATE_TABLES');

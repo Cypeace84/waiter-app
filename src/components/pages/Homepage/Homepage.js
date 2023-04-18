@@ -1,13 +1,7 @@
-import React, { useEffect } from 'react';
 import { Button, Col, Container, Row, Nav } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import tablesReducer, {
-  fetchTables,
-  getAllTables,
-} from '../../../redux/tableRedux';
-
-import styles from './Homepage.module.scss';
+import { getAllTables } from '../../../redux/tableRedux';
 
 const Homepage = () => {
   const tables = useSelector(getAllTables);
@@ -34,7 +28,7 @@ const Homepage = () => {
           </Col>
 
           <Col className='d-flex justify-content-end '>
-            <Nav.Link as={NavLink} to='/table/1'>
+            <Nav.Link as={NavLink} to={`/table/${table.id}`}>
               <Button>Show more</Button>
             </Nav.Link>
           </Col>

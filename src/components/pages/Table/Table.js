@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { getAllTables, getTableById } from '../../../redux/tableRedux';
-
-import styles from './Table.module.scss';
+import { useParams } from 'react-router-dom';
+import { getTableById } from '../../../redux/tableRedux';
 
 const Table = () => {
   const [status, setStatus] = useState('');
-  const [peopleAmount, setPeopleAmount] = useState(0);
-  const [maxPeopleAmount, setMaxPeopleAmount] = useState(0);
-  const [bill, setBill] = useState(0);
+  // const [peopleAmount, setPeopleAmount] = useState(0);
+  // const [maxPeopleAmount, setMaxPeopleAmount] = useState(0);
+  // const [bill, setBill] = useState(0);
 
-  const table = useSelector(getAllTables);
-  console.log(table);
+  // const table = useSelector(getAllTables);
+  // console.log(table);
+  const { id } = useParams();
+
+  const table = useSelector((state) => getTableById(state, id)); ///
 
   console.log(status);
   const handleSubmit = (event) => {
@@ -28,7 +30,7 @@ const Table = () => {
   return (
     <Container>
       <Row>
-        <Col className='fs-1'>Table 1</Col>
+        <Col className='fs-1'>Table {id}</Col>
       </Row>
       <Form onSubmit={handleSubmit}>
         <Form.Group as={Row}>
@@ -42,7 +44,7 @@ const Table = () => {
               name='status'
               aria-label='Default select example'
             >
-              <option></option>
+              <option>{table.status}</option>
               <option value='Free'>Free</option>
               <option value='Reserved'>Reserved</option>
               <option value='Busy'>Busy</option>
@@ -60,6 +62,7 @@ const Table = () => {
               name='people1'
               min={0}
               max={10}
+              defaultValue={table.peopleAmount}
             ></Form.Control>
           </Col>
           /
@@ -69,6 +72,7 @@ const Table = () => {
               name='people2'
               min={0}
               max={10}
+              defaultValue={table.maxPeopleAmount}
             ></Form.Control>
           </Col>
         </Form.Group>
@@ -78,7 +82,11 @@ const Table = () => {
           </Form.Label>
           &#36;
           <Col xs={1}>
-            <Form.Control type='number' name='bill'></Form.Control>
+            <Form.Control
+              type='number'
+              name='bill'
+              defaultValue={table.bill}
+            ></Form.Control>
           </Col>
         </Form.Group>
         <Button variant='primary' type='submit'>
