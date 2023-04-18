@@ -5,7 +5,7 @@ import { setLoading } from './loadingRedux';
 
 //selectors
 export const getAllTables = (state) => state.tables;
-export const getIsLoading = (state) => state.isLoading;
+// export const getIsLoading = (state) => state.isLoading;
 
 export const getTableById = ({ tables }, id) =>
   tables.find((table) => table.id == id);
