@@ -1,12 +1,19 @@
 import { Button, Col, Container, Row, Nav } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getAllTables } from '../../../redux/tableRedux';
+import { getIsLoading } from '../../../redux/LoadingRedux';
+import { getAllTables } from '../../../redux/TableRedux';
 
 const Homepage = () => {
   const tables = useSelector(getAllTables);
+  const isLoading = useSelector(getIsLoading);
 
   console.log(tables);
+
+  if (isLoading || !tables) {
+    console.log('is', isLoading);
+    return <div>Loading...</div>;
+  }
   return (
     <Container>
       <Row>

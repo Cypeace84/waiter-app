@@ -1,9 +1,9 @@
-import initialState from './initialState';
+import initialState from './InitialState';
 
 //selectors
-export const getIsLoading = (state) => state.isLoading;
+export const getIsLoading = (state) => state.isLoading.isLoading;
 
-const SET_LOADING = 'SET_LOADING';
+export const SET_LOADING = 'SET_LOADING';
 export const LOADING_START = 'app/loading/LOADING_START';
 export const LOADING_END = 'app/loading/LOADING_END';
 
@@ -20,7 +20,7 @@ const loadingReducer = (statePart = initialState.isLoading, action) => {
     case LOADING_END:
       return { ...statePart, isLoading: false };
     default:
-      return statePart; // zwracaj stan początkowy
+      return statePart;
   }
 };
 

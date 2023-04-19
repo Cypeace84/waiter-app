@@ -1,5 +1,5 @@
-import initialState from './initialState';
-import { setLoading } from './loadingRedux';
+import initialState from './InitialState';
+import { setLoading } from './LoadingRedux';
 
 // export const ustaw = setLoading(false)
 
@@ -20,10 +20,20 @@ export const updateTables = (payload) => ({ type: UPDATE_TABLES, payload });
 export const fetchTables = () => {
   return (dispatch) => {
     console.log('fetchTables start');
+    dispatch(setLoading(true));
     fetch('http://localhost:3131/api/tables')
       .then((res) => res.json())
-      .then((tables) => dispatch(updateTables(tables)))
-      .then(() => dispatch(setLoading(false)));
+      .then((tables) => {
+        console.log('fetchTables received data:', tables);
+        dispatch(updateTables(tables));
+        dispatch(setLoading(false));
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(setLoading(false));
+      });
+    // .then((tables) => dispatch(updateTables(tables)))
+    // .then(() => dispatch(setLoading(false)));
     console.log('fetchTables end');
   };
 };
