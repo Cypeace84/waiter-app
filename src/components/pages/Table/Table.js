@@ -3,11 +3,24 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getIsLoading } from '../../../redux/LoadingRedux';
-import { getTableById, updateTable } from '../../../redux/TableRedux';
+import {
+  getAllTables,
+  getTableById,
+  updateTable,
+} from '../../../redux/TableRedux';
 
 const Table = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
+  const tables = useSelector(getAllTables);
+  useEffect(() => {
+    const tableId = tables.find((table) => table.id === id);
+    if (!tableId) {
+      navigate('/');
+    }
+  }, [id, navigate, tables]);
+
   const table = useSelector((state) => getTableById(state, id)); ///
   const isLoading = useSelector(getIsLoading);
 
@@ -15,8 +28,6 @@ const Table = () => {
   const [maxPeople, setMaxPeople] = useState(0);
   const [people, setPeople] = useState(null);
   const [billValue, setBillValue] = useState(0);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (table) {
@@ -30,7 +41,6 @@ const Table = () => {
   console.log('statusValue', statusValue);
 
   const handleSubmit = (event) => {
-    // event.preventDefault();
     const formData = new FormData(event.target);
     const status = formData.get('status');
     const peopleAmount = formData.get('peopleAmount');
@@ -114,7 +124,7 @@ const Table = () => {
         </Form.Group>
         <Form.Group as={Row} className='d-flex align-items-center my-3'>
           <Form.Label column sm={1}>
-            <strong>People: {people}</strong>
+            <strong>People: </strong>
           </Form.Label>
           <Col xs={1}>
             <Form.Control
@@ -156,11 +166,10 @@ const Table = () => {
             </Col>
           </Form.Group>
         ) : null}
-        {/* <NavLink to='/' className='nav-link' activeClassName='active'> */}
+
         <Button variant='primary' type='submit'>
           Update
         </Button>
-        {/* </NavLink> */}
       </Form>
     </Container>
   );

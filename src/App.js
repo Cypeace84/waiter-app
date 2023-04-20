@@ -21,6 +21,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/table/:id' element={<Table />} />
+        <Route path='/table/*' element={<Homepage />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />
