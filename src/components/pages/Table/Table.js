@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getIsLoading } from '../../../redux/LoadingRedux';
 import { getTableById, updateTable } from '../../../redux/TableRedux';
 
@@ -28,12 +28,6 @@ const Table = () => {
   }, [table]);
   console.log('people', people);
   console.log('statusValue', statusValue);
-
-  useEffect(() => {
-    if (statusValue === 'Free' || statusValue === 'Cleaning') {
-      setPeople(0);
-    }
-  }, [statusValue]);
 
   const handleSubmit = (event) => {
     // event.preventDefault();
@@ -72,11 +66,14 @@ const Table = () => {
   };
 
   const handleStatus = (event) => {
-    setStatusValue(event.target.value);
-    if (event.target.value === 'Free' || event.target.value === 'Cleaning') {
+    const tableStatus = event.target.value;
+    setStatusValue(tableStatus);
+  };
+  useEffect(() => {
+    if (statusValue === 'Free' || statusValue === 'Cleaning') {
       setPeople(0);
     }
-  };
+  }, [statusValue]);
 
   const handleMaxPeople = (event) => {
     const newMaxPeople = event.target.value;
@@ -117,7 +114,7 @@ const Table = () => {
         </Form.Group>
         <Form.Group as={Row} className='d-flex align-items-center my-3'>
           <Form.Label column sm={1}>
-            <strong>People: </strong>
+            <strong>People: {people}</strong>
           </Form.Label>
           <Col xs={1}>
             <Form.Control
@@ -125,7 +122,8 @@ const Table = () => {
               name='peopleAmount'
               min={0}
               max={maxPeople}
-              value={people ? people : table.people}
+              defaultValue={table.peopleAmount}
+              value={people}
               onChange={(event) => setPeople(event.target.value)}
             ></Form.Control>
           </Col>
@@ -153,8 +151,6 @@ const Table = () => {
               <Form.Control
                 type='number'
                 name='bill'
-                // defaultValue={table.bill ? table.bill : 0}
-                // defaultValue={billValue ? billValue : table.bill}
                 defaultValue={table.bill ? table.bill : billValue}
               ></Form.Control>
             </Col>
