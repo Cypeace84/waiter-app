@@ -14,7 +14,7 @@ const Table = () => {
   const [statusValue, setStatusValue] = useState('');
   const [maxPeople, setMaxPeople] = useState(0);
   const [people, setPeople] = useState(null);
-  const [billValue, setBillValue] = useState(null);
+  const [billValue, setBillValue] = useState(0);
 
   const navigate = useNavigate();
 
@@ -154,7 +154,8 @@ const Table = () => {
                 type='number'
                 name='bill'
                 // defaultValue={table.bill ? table.bill : 0}
-                defaultValue={billValue ? billValue : table.bill}
+                // defaultValue={billValue ? billValue : table.bill}
+                defaultValue={table.bill ? table.bill : billValue}
               ></Form.Control>
             </Col>
           </Form.Group>
