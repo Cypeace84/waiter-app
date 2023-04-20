@@ -1,21 +1,22 @@
 import initialState from './InitialState';
 import { setLoading } from './LoadingRedux';
 
-// export const ustaw = setLoading(false)
-
 //selectors
 export const getAllTables = (state) => state.tables;
-
-// export const getIsLoading = (state) => state.isLoading;
-
 export const getTableById = ({ tables }, id) =>
   tables.find((table) => table.id === id);
+
 // actions
 const createActionName = (actionName) => `app/tables/${actionName}`;
 const UPDATE_TABLES = createActionName('UPDATE_TABLES');
+const UPDATE_TABLE = createActionName('UPDATE_TABLE');
 
 // action creators
 export const updateTables = (payload) => ({ type: UPDATE_TABLES, payload });
+export const updateTable = (id, updatedData) => ({
+  type: UPDATE_TABLE,
+  payload: { id, updatedData },
+});
 
 export const fetchTables = () => {
   return (dispatch) => {
@@ -32,9 +33,8 @@ export const fetchTables = () => {
         console.log(error);
         dispatch(setLoading(false));
       });
-    // .then((tables) => dispatch(updateTables(tables)))
-    // .then(() => dispatch(setLoading(false)));
-    console.log('fetchTables end');
+
+    // console.log('fetchTables end');
   };
 };
 
@@ -42,6 +42,18 @@ const tablesReducer = (statePart = initialState.tables, action) => {
   switch (action.type) {
     case UPDATE_TABLES:
       return [...action.payload];
+    case UPDATE_TABLE:
+      const updatedTables = statePart.map((table) => {
+        if (table.id === action.payload.id) {
+          return {
+            ...table,
+            ...action.payload.updatedData,
+          };
+        } else {
+          return table;
+        }
+      });
+      return updatedTables;
     default:
       return statePart;
   }

@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { NavLink, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useParams, useNavigate } from 'react-router-dom';
 import { getIsLoading } from '../../../redux/LoadingRedux';
-import { getTableById } from '../../../redux/TableRedux';
+import { getTableById, updateTable } from '../../../redux/TableRedux';
 
 const Table = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const table = useSelector((state) => getTableById(state, id)); ///
   const isLoading = useSelector(getIsLoading);
 
   const [statusValue, setStatusValue] = useState('');
   const [maxPeople, setMaxPeople] = useState(0);
-  const [people, setPeople] = useState(0);
-  const [billValue, setBillValue] = useState(0);
+  const [people, setPeople] = useState(null);
+  const [billValue, setBillValue] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (table) {
       setMaxPeople(table.maxPeopleAmount);
       setPeople(table.peopleAmount);
-      setBillValue(table.bill);
+      setBillValue(table.bill ? table.bill : 0);
       setStatusValue(table.status);
     }
   }, [table]);
@@ -33,17 +36,42 @@ const Table = () => {
   }, [statusValue]);
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     const formData = new FormData(event.target);
     const status = formData.get('status');
     const peopleAmount = formData.get('peopleAmount');
     const maxPeopleAmount = formData.get('maxPeopleAmount');
     const bill = formData.get('bill');
-    console.log(status, peopleAmount, maxPeopleAmount, bill);
+    console.log(status, peopleAmount, maxPeopleAmount, bill, id);
+    console.log('formData', formData);
+
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id,
+        status: status,
+        peopleAmount: peopleAmount,
+        maxPeopleAmount: maxPeopleAmount,
+        bill: bill,
+      }),
+    };
+
+    fetch(`http://localhost:3131/tables/${id}`, options);
+    dispatch(
+      updateTable(id, {
+        status,
+        peopleAmount,
+        maxPeopleAmount,
+        bill,
+      })
+    );
+    navigate('/');
   };
 
   const handleStatus = (event) => {
-    // event.preventDefault();
     setStatusValue(event.target.value);
     if (event.target.value === 'Free' || event.target.value === 'Cleaning') {
       setPeople(0);
@@ -97,7 +125,7 @@ const Table = () => {
               name='peopleAmount'
               min={0}
               max={maxPeople}
-              value={people}
+              value={people ? people : table.people}
               onChange={(event) => setPeople(event.target.value)}
             ></Form.Control>
           </Col>
@@ -125,7 +153,8 @@ const Table = () => {
               <Form.Control
                 type='number'
                 name='bill'
-                defaultValue={billValue}
+                // defaultValue={table.bill ? table.bill : 0}
+                defaultValue={billValue ? billValue : table.bill}
               ></Form.Control>
             </Col>
           </Form.Group>

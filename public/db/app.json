@@ -1,36 +1,35 @@
-
 {
   "comments": {
     "url": "http://localhost:3131/api/tables"
   },
-"tables": [
-  {
-    "id": "1",
-    "status": "Busy",
-    "peopleAmount": "2",
-    "maxPeopleAmount": "4",
-    "bill": "20"
-  },
-  {
-    "id": "2",
-    "status": "Free",
-    "peopleAmount": 0,
-    "maxPeopleAmount": 3,
-    "bill": 0
-  },
-  {
-    "id": "3",
-    "status": "Busy",
-    "peopleAmount": 2,
-    "maxPeopleAmount": 3,
-    "bill": 45
-  },
-  {
-    "id": "4",
-    "status": "Cleaning",
-    "peopleAmount": 0,
-    "maxPeopleAmount": 3,
-    "bill": 0
-  }
-]
+  "tables": [
+    {
+      "id": "1",
+      "status": "Reserved",
+      "peopleAmount": "6",
+      "maxPeopleAmount": "7",
+      "bill": null
+    },
+    {
+      "id": "2",
+      "status": "Busy",
+      "peopleAmount": "3",
+      "maxPeopleAmount": "3",
+      "bill": "3"
+    },
+    {
+      "id": "3",
+      "status": "Free",
+      "peopleAmount": "2",
+      "maxPeopleAmount": "3",
+      "bill": null
+    },
+    {
+      "id": "4",
+      "status": "Cleaning",
+      "peopleAmount": 0,
+      "maxPeopleAmount": 3,
+      "bill": 0
+    }
+  ]
 }
