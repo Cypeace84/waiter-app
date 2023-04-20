@@ -1,4 +1,4 @@
-import { Button, Col, Container, Row, Nav } from 'react-bootstrap';
+import { Button, Col, Container, Row, Nav, Spinner } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getIsLoading } from '../../../redux/LoadingRedux';
@@ -12,7 +12,13 @@ const Homepage = () => {
 
   if (isLoading || !tables) {
     console.log('is', isLoading);
-    return <div>Loading...</div>;
+    return (
+      <Container className='d-flex align-items-center justify-content-center'>
+        <Spinner animation='border' role='status'>
+          <span className='visually-hidden'>Loading...</span>
+        </Spinner>
+      </Container>
+    );
   }
   return (
     <Container>

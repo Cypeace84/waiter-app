@@ -5,9 +5,9 @@
   "tables": [
     {
       "id": "1",
-      "status": "Free",
-      "peopleAmount": "0",
-      "maxPeopleAmount": "4",
+      "status": "Reserved",
+      "peopleAmount": "2",
+      "maxPeopleAmount": "2",
       "bill": null
     },
     {

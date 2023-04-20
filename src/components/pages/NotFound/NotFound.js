@@ -1,15 +1,12 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
-
-import styles from './NotFound.module.scss';
+import { Col, Container, Row } from 'react-bootstrap';
 
 const NotFound = () => (
   <Container>
-    {' '}
-    <div className={styles.root}>NOT FOUND</div>
+    <Row>
+      <Col className='fs-1'>Not found</Col>
+    </Row>
   </Container>
 );
-
-// Homepage.propTypes = {};
 
 export default NotFound;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getIsLoading } from '../../../redux/LoadingRedux';
@@ -94,7 +94,13 @@ const Table = () => {
   };
 
   if (isLoading || !table) {
-    return <div>Loading...</div>;
+    return (
+      <Container className='d-flex align-items-center justify-content-center'>
+        <Spinner animation='border' role='status'>
+          <span className='visually-hidden'>Loading...</span>
+        </Spinner>
+      </Container>
+    );
   }
 
   return (
