@@ -8,7 +8,7 @@ const Homepage = () => {
   const tables = useSelector(getAllTables);
   const isLoading = useSelector(getIsLoading);
 
-  console.log(tables);
+  // console.log(tables);
 
   if (isLoading || !tables) {
     console.log('is', isLoading);

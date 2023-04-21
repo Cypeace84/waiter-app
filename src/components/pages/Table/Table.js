@@ -38,8 +38,8 @@ const Table = () => {
       setStatusValue(table.status);
     }
   }, [table]);
-  console.log('people', people);
-  console.log('statusValue', statusValue);
+  // console.log('people', people);
+  // console.log('statusValue', statusValue);
 
   const handleSubmit = (event) => {
     const formData = new FormData(event.target);
@@ -47,8 +47,8 @@ const Table = () => {
     const peopleAmount = formData.get('peopleAmount');
     const maxPeopleAmount = formData.get('maxPeopleAmount');
     const bill = formData.get('bill');
-    console.log(status, peopleAmount, maxPeopleAmount, bill, id);
-    console.log('formData', formData);
+    // console.log(status, peopleAmount, maxPeopleAmount, bill, id);
+    // console.log('formData', formData);
 
     const options = {
       method: 'PUT',
@@ -64,7 +64,6 @@ const Table = () => {
       }),
     };
     const URL = `${API_URL}/tables/${id}`;
-    console.log('URL', URL);
     // fetch(`http://localhost:3131/tables/${id}`, options);
     fetch(`${URL}`, options);
     dispatch(

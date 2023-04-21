@@ -21,13 +21,13 @@ export const updateTable = (id, updatedData) => ({
 
 export const fetchTables = () => {
   return (dispatch) => {
-    console.log('fetchTables start');
+    // console.log('fetchTables start');
     dispatch(setLoading(true));
     // fetch('http://localhost:3131/api/tables')
     fetch(`${API_URL}/tables`)
       .then((res) => res.json())
       .then((tables) => {
-        console.log('fetchTables received data:', tables);
+        // console.log('fetchTables received data:', tables);
         dispatch(updateTables(tables));
         dispatch(setLoading(false));
       })
