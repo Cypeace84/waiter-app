@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import initialState from './InitialState';
 import { setLoading } from './LoadingRedux';
 
@@ -22,7 +23,8 @@ export const fetchTables = () => {
   return (dispatch) => {
     console.log('fetchTables start');
     dispatch(setLoading(true));
-    fetch('http://localhost:3131/api/tables')
+    // fetch('http://localhost:3131/api/tables')
+    fetch(`${API_URL}/tables`)
       .then((res) => res.json())
       .then((tables) => {
         console.log('fetchTables received data:', tables);

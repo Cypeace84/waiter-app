@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
+import { API_URL } from '../../../config';
 import { getIsLoading } from '../../../redux/LoadingRedux';
 import {
   getAllTables,
@@ -62,8 +63,10 @@ const Table = () => {
         bill: bill,
       }),
     };
-
-    fetch(`http://localhost:3131/tables/${id}`, options);
+    const URL = `${API_URL}/tables/${id}`;
+    console.log('URL', URL);
+    // fetch(`http://localhost:3131/tables/${id}`, options);
+    fetch(`${URL}`, options);
     dispatch(
       updateTable(id, {
         status,
@@ -74,6 +77,7 @@ const Table = () => {
     );
     navigate('/');
   };
+  console.log('API', API_URL);
 
   const handleStatus = (event) => {
     const tableStatus = event.target.value;
