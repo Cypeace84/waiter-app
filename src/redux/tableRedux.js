@@ -1,6 +1,6 @@
 import { API_URL } from '../config';
-import initialState from './InitialState';
-import { setLoading } from './LoadingRedux';
+import initialState from './initialState';
+import { setLoading } from './loadingRedux';
 
 //selectors
 export const getAllTables = (state) => state.tables;

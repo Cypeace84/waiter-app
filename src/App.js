@@ -6,7 +6,7 @@ import NotFound from './components/pages/notFound/NotFound';
 import Table from './components/pages/table/Table';
 import Footer from './components/views/footer/Footer';
 import Header from './components/views/header/Header';
-import { fetchTables } from './redux/TableRedux';
+import { fetchTables } from './redux/tableRedux';
 
 function App() {
   const dispatch = useDispatch();
