@@ -27,7 +27,7 @@ export const fetchTables = () => {
     fetch(`${API_URL}/tables`)
       .then((res) => res.json())
       .then((tables) => {
-        // console.log('fetchTables received data:', tables);
+        console.log('fetchTables received data:', tables);
         dispatch(updateTables(tables));
         dispatch(setLoading(false));
       })

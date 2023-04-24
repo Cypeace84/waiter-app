@@ -13,18 +13,13 @@ import {
 const Table = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isLoading = useSelector(getIsLoading);
   const { id } = useParams();
   const tables = useSelector(getAllTables);
-  useEffect(() => {
-    const tableId = tables.find((table) => table.id === id);
-    if (!tableId) {
-      navigate('/');
-    }
-  }, [id, navigate, tables]);
+  // const tableId = tables.find((table) => table.id === id);
+  // console.log('tableId', tableId);
 
-  const table = useSelector((state) => getTableById(state, id)); ///
-  const isLoading = useSelector(getIsLoading);
-
+  const table = useSelector((state) => getTableById(state, id));
   const [statusValue, setStatusValue] = useState('');
   const [maxPeople, setMaxPeople] = useState(0);
   const [people, setPeople] = useState(null);
@@ -96,7 +91,15 @@ const Table = () => {
     setMaxPeople(newMaxPeople);
   };
 
-  if (isLoading || !table) {
+  const options = [
+    { value: 'Free', label: 'Free' },
+    { value: 'Reserved', label: 'Reserved' },
+    { value: 'Busy', label: 'Busy' },
+    { value: 'Cleaning', label: 'Cleaning' },
+  ];
+
+  if (isLoading || tables.length === 0) {
+    console.log('isLo i table', isLoading, table);
     return (
       <Container className='d-flex align-items-center justify-content-center'>
         <Spinner animation='border' role='status'>
@@ -105,7 +108,12 @@ const Table = () => {
       </Container>
     );
   }
-
+  if (!isLoading && !table) {
+    console.log('isLo i table', isLoading, table);
+    // navigate('/');
+    return navigate('/');
+  }
+  console.log('isis', isLoading);
   return (
     <Container>
       <Row>
@@ -123,11 +131,16 @@ const Table = () => {
               name='status'
               aria-label='Default select example'
             >
-              <option>{statusValue ? statusValue : table.status}</option>
-              <option value='Free'>Free</option>
-              <option value='Reserved'>Reserved</option>
-              <option value='Busy'>Busy</option>
-              <option value='Cleaning'>Cleaning</option>
+              <option selected>
+                {statusValue ? statusValue : table.status}
+              </option>
+              {options.map((option) =>
+                option.value !== statusValue ? (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ) : null
+              )}
             </Form.Select>
           </Col>
         </Form.Group>

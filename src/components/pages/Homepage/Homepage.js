@@ -10,7 +10,8 @@ const Homepage = () => {
 
   // console.log(tables);
 
-  if (isLoading || !tables) {
+  // if (isLoading || !tables) {
+  if (isLoading) {
     console.log('is', isLoading);
     return (
       <Container className='d-flex align-items-center justify-content-center'>
@@ -20,6 +21,7 @@ const Homepage = () => {
       </Container>
     );
   }
+  console.log('is', isLoading);
   return (
     <Container>
       <Row>
