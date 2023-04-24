@@ -91,7 +91,7 @@ const Table = () => {
     setMaxPeople(newMaxPeople);
   };
 
-  const options = [
+  const selectOptions = [
     { value: 'Free', label: 'Free' },
     { value: 'Reserved', label: 'Reserved' },
     { value: 'Busy', label: 'Busy' },
@@ -134,7 +134,7 @@ const Table = () => {
               <option selected>
                 {statusValue ? statusValue : table.status}
               </option>
-              {options.map((option) =>
+              {selectOptions.map((option) =>
                 option.value !== statusValue ? (
                   <option key={option.value} value={option.value}>
                     {option.label}
