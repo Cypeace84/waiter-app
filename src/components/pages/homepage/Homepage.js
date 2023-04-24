@@ -1,7 +1,7 @@
 import { Button, Col, Container, Row, Nav, Spinner } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getIsLoading } from '../../../redux/LoadingRedux';
+import { getIsLoading } from '../../../redux/loadingRedux';
 import { getAllTables } from '../../../redux/tableRedux';
 
 const Homepage = () => {

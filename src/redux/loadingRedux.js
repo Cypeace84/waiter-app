@@ -1,4 +1,4 @@
-import initialState from './InitialState';
+import initialState from './initialState';
 
 //selectors
 export const getIsLoading = (state) => state.isLoading.isLoading;
